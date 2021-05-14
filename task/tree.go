@@ -6,12 +6,12 @@ import (
 	"log"
 )
 
-func Tree(DirPath string, Depth int, LastElem bool, ElemArr []int) {
+func Tree(DirPath string, Depth int, LastElem bool, ElemArr []bool) {
 	if len(ElemArr) < Depth {
-		ElemArr = append(ElemArr, 1)
+		ElemArr = append(ElemArr, true)
 	}
 	if LastElem {
-		ElemArr[Depth-1] = 0
+		ElemArr[Depth-1] = false
 	}
 	files, err := ioutil.ReadDir(DirPath)
 	if err != nil {
@@ -19,7 +19,7 @@ func Tree(DirPath string, Depth int, LastElem bool, ElemArr []int) {
 	}
 	for i, f := range files {
 		for u := 0; u < Depth; u++ {
-			if ElemArr[u] == 1 {
+			if ElemArr[u] {
 				fmt.Print("|    ")
 			} else {
 				fmt.Print("     ")
