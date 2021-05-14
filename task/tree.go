@@ -6,20 +6,20 @@ import (
 	"log"
 )
 
-func Tree(DirPath string, Depth int, LastElem bool, ElemArr []bool) {
-	if len(ElemArr) < Depth {
-		ElemArr = append(ElemArr, true)
+func Tree(dirPath string, depth int, lastElem bool, elemArr []bool) {
+	if len(elemArr) < depth {
+		elemArr = append(elemArr, true)
 	}
-	if LastElem {
-		ElemArr[Depth-1] = false
+	if lastElem {
+		elemArr[depth-1] = false
 	}
-	files, err := ioutil.ReadDir(DirPath)
+	files, err := ioutil.ReadDir(dirPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	for i, f := range files {
-		for u := 0; u < Depth; u++ {
-			if ElemArr[u] {
+		for u := 0; u < depth; u++ {
+			if elemArr[u] {
 				fmt.Print("|    ")
 			} else {
 				fmt.Print("     ")
@@ -28,9 +28,10 @@ func Tree(DirPath string, Depth int, LastElem bool, ElemArr []bool) {
 		fmt.Print("|----", f.Name(), "\n")
 		if f.IsDir() {
 			if len(files)-1 == i {
-				Tree(DirPath+"/"+f.Name(), Depth+1, true, ElemArr)
+				//fmt.Sprintf("%s/%s", dirPath, f.Name())
+				Tree(dirPath+"/"+f.Name(), depth+1, true, elemArr)
 			} else {
-				Tree(DirPath+"/"+f.Name(), Depth+1, false, ElemArr)
+				Tree(dirPath+"/"+f.Name(), depth+1, false, elemArr)
 			}
 		}
 	}
