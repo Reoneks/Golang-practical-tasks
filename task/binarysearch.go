@@ -12,16 +12,14 @@ func BinarySearch(array []string, toFind string) int {
 	left := 0
 	right := len(array)
 	mid := (right + left) / 2
-	for {
+	for ; ; mid = (right + left) / 2 {
 		if array[mid] == toFind {
 			break
-		}
-		if toFind > array[mid] {
+		} else if toFind > array[mid] {
 			left = mid
 		} else {
 			right = mid
 		}
-		mid = (right + left) / 2
 	}
 	return mid
 }

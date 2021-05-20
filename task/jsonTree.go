@@ -23,11 +23,9 @@ type Elem struct {
 }
 
 func ConvFileTypeToElem(fileInfo fs.FileInfo, arrayOfFilesInDir []Elem) (result Elem) {
-	var fileType ElemType
+	var fileType ElemType = FileElemType
 	if fileInfo.IsDir() {
 		fileType = DirectoryElemType
-	} else {
-		fileType = FileElemType
 	}
 	result = Elem{
 		Name:      fileInfo.Name(),
@@ -60,6 +58,9 @@ func StartJsonTree(startDirPath string) {
 		return
 	}
 	var prettyJSON bytes.Buffer
-	json.Indent(&prettyJSON, data, "", "  ")
+	if err := json.Indent(&prettyJSON, data, "", "  "); err != nil {
+		log.Fatal(err)
+		return
+	}
 	fmt.Println(prettyJSON.String())
 }

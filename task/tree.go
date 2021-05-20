@@ -16,6 +16,7 @@ func Tree(dirPath string, depth int, lastElem bool, elemArr []bool) {
 	files, err := ioutil.ReadDir(dirPath)
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 	for i, f := range files {
 		for u := 0; u < depth; u++ {
@@ -28,7 +29,6 @@ func Tree(dirPath string, depth int, lastElem bool, elemArr []bool) {
 		fmt.Print("|----", f.Name(), "\n")
 		if f.IsDir() {
 			if len(files)-1 == i {
-				//fmt.Sprintf("%s/%s", dirPath, f.Name())
 				Tree(dirPath+"/"+f.Name(), depth+1, true, elemArr)
 			} else {
 				Tree(dirPath+"/"+f.Name(), depth+1, false, elemArr)
