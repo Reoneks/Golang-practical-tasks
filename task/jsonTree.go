@@ -23,7 +23,7 @@ type Elem struct {
 }
 
 func ConvFileTypeToElem(fileInfo fs.FileInfo, arrayOfFilesInDir []Elem) (result Elem) {
-	var fileType ElemType = FileElemType
+	fileType := FileElemType
 	if fileInfo.IsDir() {
 		fileType = DirectoryElemType
 	}
